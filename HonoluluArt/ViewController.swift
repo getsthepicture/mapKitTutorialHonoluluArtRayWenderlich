@@ -43,6 +43,12 @@ class ViewController: UIViewController {
         let initialLocation = CLLocation.init(latitude: 21.282778, longitude: -157.829444)
         
         centerMapOnLocation(location: initialLocation)
+        
+        
+        let artwork = Artwork.init(title: "King David Kalakaua", locationName: "Waikiki Gateway Park", discipline: "Sculpture", coordinate: CLLocationCoordinate2D.init(latitude: 21.283921, longitude: -157.831661))
+        
+        mapView.addAnnotation(artwork)
+        
   }
     
     //when specifying a latlong to zoom into in iOS, you must also state a rectangular region for it to display a correct zoom level???
