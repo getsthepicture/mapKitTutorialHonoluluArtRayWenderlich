@@ -32,10 +32,26 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController {
-
-  override func viewDidLoad() {
+    
+    //created an IBOutlet to control the mapView in interface builder
+    @IBOutlet weak var mapView: MKMapView!
+    
+    override func viewDidLoad() {
     super.viewDidLoad()
+        
+        //initial location to zoom the map into once the app is opened.
+        let initialLocation = CLLocation.init(latitude: 21.282778, longitude: -157.829444)
+        
+        centerMapOnLocation(location: initialLocation)
   }
+    
+    //when specifying a latlong to zoom into in iOS, you must also state a rectangular region for it to display a correct zoom level???
+    let regionRadius: CLLocationDistance = 1000
+    
+    func centerMapOnLocation(location: CLLocation){
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
 
 }
 
