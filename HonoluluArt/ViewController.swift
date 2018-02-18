@@ -44,6 +44,7 @@ class ViewController: UIViewController {
         
         centerMapOnLocation(location: initialLocation)
         
+        mapView.delegate = self
         
         let artwork = Artwork.init(title: "King David Kalakaua", locationName: "Waikiki Gateway Park", discipline: "Sculpture", coordinate: CLLocationCoordinate2D.init(latitude: 21.283921, longitude: -157.831661))
         
@@ -81,7 +82,15 @@ extension ViewController: MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint.init(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton.init(type: .detailDisclosure)
+            view.markerTintColor = UIColor.green
         }
         return view
+    }
+    
+    //Here we use a delegate function to dictacte how the app should respond when the user taps the callout button.
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let location = view.annotation as! Artwork
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+        location.mapItem().openInMaps(launchOptions: launchOptions)
     }
 }

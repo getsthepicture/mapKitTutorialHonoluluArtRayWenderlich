@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import Contacts
 
 class Artwork: NSObject, MKAnnotation {
     let title: String?
@@ -26,5 +27,14 @@ class Artwork: NSObject, MKAnnotation {
     
     var subtitle: String? {
         return locationName
+    }
+    
+    //Here you create an MKMapItem from an MKPlacemark.  The Maps app is able to read this MKMapItem, and displays the right thing.
+    func mapItem() -> MKMapItem{
+        let addressDict = [CNPostalAddressStreetKey: subtitle!]
+        let placemark = MKPlacemark.init(coordinate: coordinate, addressDictionary: addressDict)
+        let mapItem = MKMapItem.init(placemark: placemark)
+        mapItem.name = title
+        return mapItem
     }
 }
